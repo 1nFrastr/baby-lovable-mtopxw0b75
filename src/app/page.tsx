@@ -1,10 +1,23 @@
+import type { Metadata } from "next";
+
+import Hero from "@/components/home/Hero";
+import Categories from "@/components/home/Categories";
+import FeaturedAircraft from "@/components/home/FeaturedAircraft";
+import FeaturedWeapons from "@/components/home/FeaturedWeapons";
+import Milestones from "@/components/home/Milestones";
+
+export const metadata: Metadata = {
+  title: "Wing & Steel — Aviation & Military Tech",
+};
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-4 p-8">
-      <h1 className="text-3xl font-semibold">baby-lovable app</h1>
-      <p className="max-w-md text-center text-foreground/80">
-        Your Next.js starter is ready. Ask the agent to customize this page.
-      </p>
-    </main>
+    <>
+      <Hero />
+      <Categories />
+      <FeaturedAircraft />
+      <FeaturedWeapons />
+      <Milestones />
+    </>
   );
 }
