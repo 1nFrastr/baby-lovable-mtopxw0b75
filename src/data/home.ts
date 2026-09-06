@@ -57,6 +57,7 @@ export const categories: Category[] = [
       "Main battle tanks, howitzers and rocket systems that decide land wars.",
     icon: "🛡️",
     accent: "from-orange-600/20 via-orange-600/5",
+    href: "/weapons",
   },
 ];
 
