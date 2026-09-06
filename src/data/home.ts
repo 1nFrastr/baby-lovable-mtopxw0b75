@@ -62,8 +62,7 @@ export const featuredAircraft: Aircraft[] = [
     country: "USA",
     role: "Air superiority",
     speed: "Mach 2.25",
-    image:
-      "https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=900&q=70",
+    image: "/images/fighter.svg",
     description:
       "The world's first stealth air-superiority fighter, with supercruise and thrust-vectored agility.",
   },
@@ -95,8 +94,7 @@ export const featuredAircraft: Aircraft[] = [
     country: "USA",
     role: "Tactical airlift",
     speed: "366 mph",
-    image:
-      "https://images.unsplash.com/photo-1562629087-8a659bcb26e1?auto=format&fit=crop&w=900&q=70",
+    image: "/images/transport.svg",
     description:
       "Sixty-plus years of service, landing on unprepared strips and delivering anywhere.",
   },
