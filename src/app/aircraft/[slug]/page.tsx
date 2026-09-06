@@ -7,12 +7,13 @@ export function generateStaticParams() {
   return aircraftCatalog.map((a) => ({ slug: a.slug }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const aircraft = aircraftCatalog.find((a) => a.slug === params.slug);
+  const { slug } = await params;
+  const aircraft = aircraftCatalog.find((a) => a.slug === slug);
   return {
     title: aircraft ? `${aircraft.name} — Wing & Steel` : "Aircraft — Wing & Steel",
     description: aircraft?.description,
@@ -34,12 +35,13 @@ function SpecRow({
   );
 }
 
-export default function AircraftDetailPage({
+export default async function AircraftDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const aircraft = aircraftCatalog.find((a) => a.slug === params.slug);
+  const { slug } = await params;
+  const aircraft = aircraftCatalog.find((a) => a.slug === slug);
   if (!aircraft) notFound();
 
   return (

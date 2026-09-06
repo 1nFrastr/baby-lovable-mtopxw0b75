@@ -19,12 +19,13 @@ export function generateMetadata({
   };
 }
 
-export default function WeaponDetailPage({
+export default async function WeaponDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const weapon = weaponsCatalog.find((w) => w.slug === params.slug);
+  const { slug } = await params;
+  const weapon = weaponsCatalog.find((w) => w.slug === slug);
   if (!weapon) notFound();
 
   const rows: [string, string][] = [
