@@ -1,1 +1,25 @@
-[compacted: public/images/fighter-2.svg · 449 chars — already written; use readFile if needed]
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" role="img" aria-label="Carrier-based fighter jet">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#93c5fd"/>
+      <stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+    <linearGradient id="deck" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#475569"/>
+      <stop offset="1" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="600" fill="url(#sea)"/>
+  <path d="M0 430 L900 430 L900 600 L0 600 Z" fill="#0f172a" opacity="0.85"/>
+  <rect x="0" y="430" width="900" height="26" fill="url(#deck)"/>
+  <rect x="0" y="456" width="900" height="8" fill="#f59e0b" opacity="0.8"/>
+  <g transform="translate(430,300) rotate(-8)">
+    <path d="M-170 0 L-55 -16 L45 -5 L170 0 L45 5 L-55 16 Z" fill="#64748b" stroke="#0f172a" stroke-width="2"/>
+    <path d="M-35 -5 L-130 -60 L-55 -16 Z" fill="#475569" stroke="#0f172a" stroke-width="2"/>
+    <path d="M-35 5 L-130 60 L-55 16 Z" fill="#475569" stroke="#0f172a" stroke-width="2"/>
+    <path d="M55 -3 L150 -42 L170 0 Z" fill="#64748b" stroke="#0f172a" stroke-width="2"/>
+    <path d="M55 3 L150 42 L170 0 Z" fill="#64748b" stroke="#0f172a" stroke-width="2"/>
+    <circle cx="18" cy="0" r="6" fill="#fbbf24" stroke="#0f172a" stroke-width="2"/>
+    <path d="M-55 0 L-110 -3 L-110 3 Z" fill="#0f172a"/>
+  </g>
+</svg>

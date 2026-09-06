@@ -1,1 +1,26 @@
-[compacted: public/images/hero.svg · 449 chars — already written; use readFile if needed]
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Military aviation hero scene">
+  <defs>
+    <linearGradient id="heroSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0c4a6e"/>
+      <stop offset="0.5" stop-color="#0369a1"/>
+      <stop offset="1" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="heroBody" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#64748b"/>
+      <stop offset="1" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#heroSky)"/>
+  <circle cx="1250" cy="150" r="70" fill="#fef3c7" opacity="0.95"/>
+  <circle cx="1250" cy="150" r="95" fill="#fef3c7" opacity="0.4"/>
+  <path d="M0 700 Q400 620 800 660 Q1200 700 1600 620 L1600 900 L0 900 Z" fill="#0f172a" opacity="0.5"/>
+  <g transform="translate(800,430)">
+    <path d="M-320 0 L-110 -36 L90 -10 L320 0 L90 10 L-110 36 Z" fill="url(#heroBody)" stroke="#0f172a" stroke-width="3"/>
+    <path d="M-80 -10 L-280 -140 L-110 -36 Z" fill="#475569" stroke="#0f172a" stroke-width="3"/>
+    <path d="M-80 10 L-280 140 L-110 36 Z" fill="#475569" stroke="#0f172a" stroke-width="3"/>
+    <path d="M110 -7 L290 -80 L320 0 Z" fill="#64748b" stroke="#0f172a" stroke-width="3"/>
+    <path d="M110 7 L290 80 L320 0 Z" fill="#64748b" stroke="#0f172a" stroke-width="3"/>
+    <circle cx="35" cy="0" r="11" fill="#38bdf8" stroke="#0f172a" stroke-width="3"/>
+    <path d="M-110 0 L-220 -6 L-220 6 Z" fill="#0f172a"/>
+  </g>
+</svg>
