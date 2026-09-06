@@ -1,15 +1,25 @@
 @import "tailwindcss";
 
-:root {
-  color-scheme: light dark;
+:root,
+[data-theme="light"] {
+  color-scheme: light;
   --background: #f2f5fa;
   --foreground: #0b1220;
   --panel: #ffffff;
   --muted: #5b6472;
 }
 
+[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #0a0e14;
+  --foreground: #e8edf2;
+  --panel: #11161f;
+  --muted: #9aa4b2;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme]),
+  :root[data-theme="system"] {
     --background: #0a0e14;
     --foreground: #e8edf2;
     --panel: #11161f;
