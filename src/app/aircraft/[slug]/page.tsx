@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { aircraftCatalog } from "@/data/aircraft";
 import AIImage from "@/components/AIImage";
+import FavoriteButton from "@/components/FavoriteButton";
+import CompareButton from "@/components/CompareButton";
 
 export function generateStaticParams() {
   return aircraftCatalog.map((a) => ({ slug: a.slug }));

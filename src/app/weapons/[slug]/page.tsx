@@ -2,17 +2,20 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { weaponsCatalog } from "@/data/weapons";
 import AIImage from "@/components/AIImage";
+import FavoriteButton from "@/components/FavoriteButton";
+import CompareButton from "@/components/CompareButton";
 
 export function generateStaticParams() {
   return weaponsCatalog.map((w) => ({ slug: w.slug }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
-  const weapon = weaponsCatalog.find((w) => w.slug === params.slug);
+  const { slug } = await params;
+  const weapon = weaponsCatalog.find((w) => w.slug === slug);
   return {
     title: weapon ? `${weapon.name} — Wing & Steel` : "Weapons — Wing & Steel",
     description: weapon?.notes,

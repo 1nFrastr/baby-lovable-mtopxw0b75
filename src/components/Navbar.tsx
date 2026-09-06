@@ -3,8 +3,9 @@ import Link from "next/link";
 const navLinks = [
   { label: "Aircraft", href: "/aircraft" },
   { label: "Weapons", href: "/weapons" },
+  { label: "Favorites", href: "/favorites" },
+  { label: "Compare", href: "/compare" },
   { label: "Search", href: "/search" },
-  { label: "History", href: "/#history" },
 ];
 
 export default function Navbar() {
@@ -19,7 +20,7 @@ export default function Navbar() {
             Wing <span className="text-sky-400">&amp;</span> Steel
           </span>
         </Link>
-        <div className="flex items-center gap-6 text-sm font-medium text-foreground/70">
+        <div className="flex items-center gap-5 text-sm font-medium text-foreground/70">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -29,9 +30,6 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <button className="rounded-lg bg-foreground px-4 py-2 text-sm font-semibold text-background transition-opacity hover:opacity-90">
-            Join the Base
-          </button>
         </div>
       </nav>
     </header>
