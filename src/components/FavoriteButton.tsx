@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import { Heart } from "lucide-react";
-import { slugKey } from "@/lib/storage";
-import { useStoredList } from "@/lib/storage";
+import { slugKey, FAVORITES_KEY, useStoredList } from "@/lib/storage";
 
 export default function FavoriteButton({
   kind,
@@ -14,9 +13,9 @@ export default function FavoriteButton({
   slug: string;
   className?: string;
 }) {
-  const [items, toggle] = useStoredList("wing-steel:favorites");
+  const { items, has, toggle } = useStoredList(FAVORITES_KEY);
   const [init, setInit] = useState(false);
-  const active = items.includes(slugKey(kind, slug));
+  const active = has(slugKey(kind, slug));
 
   return (
     <button
