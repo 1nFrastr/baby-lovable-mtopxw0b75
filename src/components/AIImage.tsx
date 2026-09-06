@@ -2,14 +2,6 @@
 
 import { useState } from "react";
 
-/** Build a Pollinations.ai on-the-fly image URL from a natural-language prompt. */
-export function pollinationsUrl(prompt: string, width = 900, height = 600) {
-  const encoded = encodeURIComponent(
-    `${prompt.trim()}, photorealistic, sharp focus, high detail`,
-  );
-  return `https://image.pollinations.ai/prompt/${encoded}?width=${width}&height=${height}&nologo=true&seed=${hashString(prompt)}`;
-}
-
 /** Deterministic seed so the same prompt always yields the same image. */
 function hashString(s: string) {
   let h = 0;
@@ -19,6 +11,12 @@ function hashString(s: string) {
   return Math.abs(h);
 }
 
+/** Lightweight setup: Picsum.photos gives a random photo per seed, stable across reloads. */
+export function picsumUrl(prompt: string, width = 900, height = 600) {
+  const seed = hashString(prompt);
+  return `https://picsum.photos/seed/${seed}/${width}/${height}`;
+}
+
 type AIImageProps = {
   prompt: string;
   fallback: string;
@@ -26,7 +24,7 @@ type AIImageProps = {
   className?: string;
 };
 
-/** Loads a Pollinations AI image, falling back to a local SVG on failure. */
+/** Loads a Picsum random-photo URL, falling back to a local SVG on failure. */
 export default function AIImage({
   prompt,
   fallback,
@@ -34,7 +32,7 @@ export default function AIImage({
   className,
 }: AIImageProps) {
   const [failed, setFailed] = useState(false);
-  const src = failed ? fallback : pollinationsUrl(prompt);
+  const src = failed ? fallback : picsumUrl(prompt);
 
   return (
     <img
