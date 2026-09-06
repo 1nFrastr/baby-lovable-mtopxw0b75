@@ -5,6 +5,7 @@ export type Aircraft = {
   role: string;
   speed: string;
   image: string;
+  imagePrompt: string;
   description: string;
 };
 
@@ -77,7 +78,7 @@ export const featuredAircraft: Aircraft[] = [
     image: "/images/fighter-2.svg",
     imagePrompt: "US Navy F/A-18 Hornet fighter on carrier deck",
     description:
-      "Carrier-proven workhorse — flawless air-to-air and air-to-ground in every pace of conflict.",
+      "Carrier-proven workhorse — flawless air-to-air and air-to-ground in every phase of conflict.",
   },
   {
     name: "Su-27 Flanker",
@@ -86,7 +87,7 @@ export const featuredAircraft: Aircraft[] = [
     role: "Air superiority",
     speed: "Mach 2.35",
     image: "/images/fighter-3.svg",
-    imagePrompt: "Russian Sukhoi Su-27 Flanker disc jet at an airshow",
+    imagePrompt: "Russian Sukhoi Su-27 Flanker jet performing at an airshow",
     description:
       "A classic Cold War interceptor whose acrobatic Cobra maneuvers still impress at airshows.",
   },
@@ -97,6 +98,7 @@ export const featuredAircraft: Aircraft[] = [
     role: "Tactical airlift",
     speed: "366 mph",
     image: "/images/transport.svg",
+    imagePrompt: "Lockheed C-130 Hercules military transport aircraft in flight",
     description:
       "Sixty-plus years of service, landing on unprepared strips and delivering anywhere.",
   },
@@ -109,8 +111,8 @@ export const featuredWeapons: Weapon[] = [
     country: "USA",
     caliber: "5.56×45mm NATO",
     notes: "Standard-issue U.S. carbine since the 1990s.",
-    image:
-      "https://images.unsplash.com/photo-1595590424283-b8f17842773f?auto=format&fit=crop&w=900&q=70",
+    image: "/images/rifle.svg",
+    imagePrompt: "US military M4 carbine assault rifle with attachments",
   },
   {
     name: "M16 Rifle",
@@ -118,8 +120,8 @@ export const featuredWeapons: Weapon[] = [
     country: "USA",
     caliber: "5.56×45mm NATO",
     notes: "The icon of the Cold War infantryman.",
-    image:
-      "https://images.unsplash.com/photo-1545468800-85f7c7c3e2ab?auto=format&fit=crop&w=900&q=70",
+    image: "/images/rifle-2.svg",
+    imagePrompt: "classic M16 rifle with wooden stock and carrying handle",
   },
   {
     name: "AK-47",
@@ -136,8 +138,8 @@ export const featuredWeapons: Weapon[] = [
     country: "USA",
     caliber: ".50 BMG",
     notes: "Anti-materiel rifle with 2 km+ effective range.",
-    image:
-      "https://images.unsplash.com/photo-1518818608552-195ed130c7d9?auto=format&fit=crop&w=900&q=70",
+    image: "/images/sniper.svg",
+    imagePrompt: "Barrett M107 anti-materiel sniper rifle",
   },
 ];
 
