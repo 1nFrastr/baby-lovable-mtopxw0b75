@@ -1,15 +1,16 @@
 import type { Weapon } from "@/data/home";
 import { featuredWeapons } from "@/data/home";
 import SectionHeading from "@/components/SectionHeading";
+import AIImage from "@/components/AIImage";
 
 function WeaponCard({ weapon }: { weapon: Weapon }) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-foreground/10 bg-foreground/5 transition-transform duration-300 hover:-translate-y-1">
       <div className="relative h-52 overflow-hidden">
-        <img
-          src={weapon.image}
+        <AIImage
+          prompt={weapon.imagePrompt}
+          fallback={weapon.image}
           alt={weapon.name}
-          loading="lazy"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <span className="absolute left-3 top-3 rounded-md bg-background/70 px-2 py-1 text-xs font-bold uppercase tracking-wider backdrop-blur">

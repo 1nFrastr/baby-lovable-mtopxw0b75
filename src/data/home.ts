@@ -15,6 +15,7 @@ export type Weapon = {
   caliber: string;
   notes: string;
   image: string;
+  imagePrompt: string;
 };
 
 export type Category = {
@@ -63,6 +64,7 @@ export const featuredAircraft: Aircraft[] = [
     role: "Air superiority",
     speed: "Mach 2.25",
     image: "/images/fighter.svg",
+    imagePrompt: "F-22 Raptor stealth fighter jet banking in flight, blue sky",
     description:
       "The world's first stealth air-superiority fighter, with supercruise and thrust-vectored agility.",
   },
@@ -72,8 +74,8 @@ export const featuredAircraft: Aircraft[] = [
     country: "USA",
     role: "Multirole carrier strike",
     speed: "Mach 1.8+",
-    image:
-      "https://images.unsplash.com/photo-1613961026936-39d9e5d5211d?auto=format&fit=crop&w=900&q=70",
+    image: "/images/fighter-2.svg",
+    imagePrompt: "US Navy F/A-18 Hornet fighter on carrier deck",
     description:
       "Carrier-proven workhorse — flawless air-to-air and air-to-ground in every pace of conflict.",
   },
@@ -83,8 +85,8 @@ export const featuredAircraft: Aircraft[] = [
     country: "Russia",
     role: "Air superiority",
     speed: "Mach 2.35",
-    image:
-      "https://images.unsplash.com/photo-1505682634904-d7c8d95cdc50?auto=format&fit=crop&w=900&q=70",
+    image: "/images/fighter-3.svg",
+    imagePrompt: "Russian Sukhoi Su-27 Flanker disc jet at an airshow",
     description:
       "A classic Cold War interceptor whose acrobatic Cobra maneuvers still impress at airshows.",
   },
@@ -125,8 +127,8 @@ export const featuredWeapons: Weapon[] = [
     country: "Soviet Union",
     caliber: "7.62×39mm",
     notes: "Over 100 million built — the most produced firearm in history.",
-    image:
-      "https://images.unsplash.com/photo-1587131782795-3f9bbd1f80b3?auto=format&fit=crop&w=900&q=70",
+    image: "/images/rifle-3.svg",
+    imagePrompt: "AK-47 assault rifle with curved magazine",
   },
   {
     name: "Barrett M107",
