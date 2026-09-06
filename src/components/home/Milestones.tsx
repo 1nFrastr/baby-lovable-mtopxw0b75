@@ -15,22 +15,30 @@ export default function Milestones() {
         />
 
         <div className="relative mx-auto max-w-3xl">
-          <div className="absolute left-4 top-0 h-full w-px bg-foreground/10 sm:left-1/2" />
-          <div className="space-y-8">
-            {milestones.map((m) => (
+          {/* center line */}
+          <div className="absolute left-[13px] top-2 bottom-2 w-px bg-foreground/15 sm:left-1/2" />
+
+          <div className="space-y-6">
+            {milestones.map((m, i) => (
               <div
                 key={m.year}
-                className="relative flex items-start gap-6 pl-10 sm:w-1/2 sm:pl-0"
+                className="relative sm:grid sm:grid-cols-2 sm:gap-10"
               >
+                {/* dot */}
+                <div
+                  className="absolute left-0 top-5 z-10 h-[27px] w-[27px] rounded-full border-4 border-background bg-sky-400 sm:left-1/2 sm:-translate-x-1/2"
+                />
+
+                {/* card */}
                 <div
                   className={
-                    "flex " +
-                    (indexIsOdd(m.year)
-                      ? "sm:mr-auto sm:-translate-x-full sm:flex-row-reverse sm:pr-12 sm:text-right"
-                      : "sm:ml-auto sm:pl-12")
+                    "pl-11 sm:pl-0 " +
+                    (i % 2 === 0
+                      ? "sm:col-start-1 sm:pr-12 sm:text-right"
+                      : "sm:col-start-2 sm:pl-12")
                   }
                 >
-                  <div className="rounded-xl border border-foreground/10 bg-background p-4">
+                  <div className="inline-block rounded-xl border border-foreground/10 bg-background p-5 shadow-lg shadow-black/20">
                     <span className="text-xs font-black tracking-widest text-sky-400">
                       {m.year}
                     </span>
@@ -46,8 +54,4 @@ export default function Milestones() {
       </div>
     </section>
   );
-}
-
-function indexIsOdd(year: string) {
-  return Number(year) % 2 !== 0;
 }
