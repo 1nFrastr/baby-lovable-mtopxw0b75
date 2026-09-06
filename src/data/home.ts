@@ -41,6 +41,7 @@ export const categories: Category[] = [
       "Gunships and transports — Apache, Black Hawk, Hind and heavy-lift titans.",
     icon: "🚁",
     accent: "from-emerald-500/20 via-emerald-500/5",
+    href: "/aircraft",
   },
   {
     title: "Small Arms",
