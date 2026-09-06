@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 const navLinks = [
-  { label: "Aircraft", href: "#aircraft" },
-  { label: "Weapons", href: "#weapons" },
-  { label: "History", href: "#history" },
+  { label: "Aircraft", href: "/aircraft" },
+  { label: "Weapons", href: "/weapons" },
+  { label: "History", href: "/#history" },
 ];
 
 export default function Navbar() {

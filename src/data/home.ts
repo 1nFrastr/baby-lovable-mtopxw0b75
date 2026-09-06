@@ -33,6 +33,7 @@ export const categories: Category[] = [
       "Mach-speed air superiority: F-22, F-35, Su-57 and the legends that rule the sky.",
     icon: "🛩️",
     accent: "from-sky-500/20 via-sky-500/5",
+    href: "/aircraft",
   },
   {
     title: "Helicopters",
@@ -47,6 +48,7 @@ export const categories: Category[] = [
       "Rifles, pistols, SMGs and sniper systems — the infantry warrior's toolkit.",
     icon: "🔫",
     accent: "from-amber-500/20 via-amber-500/5",
+    href: "/weapons",
   },
   {
     title: "Armor & Artillery",

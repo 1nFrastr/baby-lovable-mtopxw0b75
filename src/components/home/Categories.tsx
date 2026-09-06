@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { categories } from "@/data/home";
 
 export default function Categories() {
@@ -14,9 +15,9 @@ export default function Categories() {
 
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {categories.map((cat) => (
-          <a
+          <Link
             key={cat.title}
-            href="#"
+            href={cat.href}
             className="group relative overflow-hidden rounded-2xl border border-foreground/10 bg-gradient-to-b p-6 transition-transform duration-300 hover:-translate-y-1"
             style={{
               backgroundImage: `linear-gradient(${cat.accent}, transparent)`,
@@ -32,7 +33,7 @@ export default function Categories() {
             <span className="mt-4 inline-block text-sm font-semibold text-sky-400">
               View catalog →
             </span>
-          </a>
+          </Link>
         ))}
       </div>
     </section>
