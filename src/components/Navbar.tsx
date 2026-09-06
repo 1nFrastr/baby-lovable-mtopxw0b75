@@ -3,6 +3,7 @@ import Link from "next/link";
 const navLinks = [
   { label: "Aircraft", href: "/aircraft" },
   { label: "Weapons", href: "/weapons" },
+  { label: "Search", href: "/search" },
   { label: "History", href: "/#history" },
 ];
 
