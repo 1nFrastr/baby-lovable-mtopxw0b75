@@ -4,6 +4,7 @@ import "./globals.css";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CompareTray from "@/components/CompareTray";
 
 export const metadata: Metadata = {
   title: "Wing & Steel — Aviation & Military Tech",
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body className="flex min-h-full flex-col">
         <Navbar />
         <main className="flex-1">{children}</main>
+        <CompareTray />
         <Footer />
       </body>
     </html>

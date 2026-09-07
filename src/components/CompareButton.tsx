@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Scale } from "lucide-react";
+import { Scale, Check } from "lucide-react";
 import { slugKey, COMPARE_KEY } from "@/lib/storage";
 import { useStoredList } from "@/lib/storage";
 
@@ -27,12 +27,18 @@ export default function CompareButton({
 
   return (
     <button
-      aria-label={active ? `Remove ${name} from comparison` : `Add ${name} to comparison`}
+      aria-label={
+        active
+          ? `Remove ${name} from comparison`
+          : full
+            ? `Comparison full (max ${MAX} per category)`
+            : `Add ${name} to comparison`
+      }
       title={
-        full
-          ? `Comparison is full (max ${MAX})`
-          : active
-            ? "In comparison — click to remove"
+        active
+          ? `${name} added — click to remove`
+          : full
+            ? `Max ${MAX} per category reached`
             : `Add ${name} to comparison`
       }
       disabled={full}
@@ -44,7 +50,11 @@ export default function CompareButton({
           : "border-foreground/15 text-foreground/70 hover:bg-foreground/10"
       } ${className}`}
     >
-      <Scale className={`h-5 w-5 ${active ? "fill-current" : ""}`} />
+      {active ? (
+        <Check className="h-5 w-5" />
+      ) : (
+        <Scale className="h-5 w-5" />
+      )}
       {!hovered && <span className="sr-only">{name}</span>}
     </button>
   );

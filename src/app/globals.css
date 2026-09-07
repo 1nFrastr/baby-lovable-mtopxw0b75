@@ -40,3 +40,20 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+@keyframes tray-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-tray-pulse {
+  animation: tray-pulse 0.5s ease-in-out;
+}
