@@ -6,11 +6,13 @@ import { Scale, X, ArrowRight } from "lucide-react";
 import { COMPARE_KEY, slugKey, useStoredList } from "@/lib/storage";
 import { aircraftCatalog } from "@/data/aircraft";
 import { weaponsCatalog } from "@/data/weapons";
+import AIImage from "@/components/AIImage";
 
 type Entry = {
   kind: "aircraft" | "weapon";
   slug: string;
   name: string;
+  imagePrompt: string;
   image: string;
 };
 
@@ -18,10 +20,14 @@ function resolveEntry(key: string): Entry | null {
   const [kind, slug] = key.split(":");
   if (kind === "aircraft") {
     const a = aircraftCatalog.find((x) => x.slug === slug);
-    return a ? { kind, slug, name: a.name, image: a.image } : null;
+    return a
+      ? { kind, slug, name: a.name, imagePrompt: a.imagePrompt, image: a.image }
+      : null;
   }
   const w = weaponsCatalog.find((x) => x.slug === slug);
-  return w ? { kind, slug, name: w.name, image: w.image } : null;
+  return w
+    ? { kind, slug, name: w.name, imagePrompt: w.imagePrompt, image: w.image }
+    : null;
 }
 
 export default function CompareTray() {
@@ -71,9 +77,9 @@ export default function CompareTray() {
           {entries.map((e) => (
             <div key={slugKey(e.kind, e.slug)} className="group relative shrink-0">
               <div className="h-12 w-12 overflow-hidden rounded-lg border border-foreground/10 bg-foreground/5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={e.image}
+                <AIImage
+                  prompt={e.imagePrompt}
+                  fallback={e.image}
                   alt={e.name}
                   className="h-full w-full object-cover"
                 />
