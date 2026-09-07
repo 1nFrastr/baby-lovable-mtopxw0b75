@@ -21,7 +21,9 @@ export default function CompareButton({
   const { items, has, toggle } = useStoredList(COMPARE_KEY);
   const [hovered, setHovered] = useState(false);
   const active = has(slugKey(kind, slug));
-  const full = items.length >= MAX && !active;
+  // Limit is per category, so 3 weapons never block aircraft (and vice versa).
+  const kindCount = items.filter((s) => s.startsWith(`${kind}:`)).length;
+  const full = kindCount >= MAX && !active;
 
   return (
     <button
