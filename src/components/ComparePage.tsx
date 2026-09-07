@@ -6,8 +6,6 @@ import { aircraftCatalog } from "@/data/aircraft";
 import { weaponsCatalog } from "@/data/weapons";
 import AIImage from "@/components/AIImage";
 
-type Row = { label: string; key: (a: A | W) => string };
-
 type A = (typeof aircraftCatalog)[number];
 type W = (typeof weaponsCatalog)[number];
 
@@ -33,6 +31,75 @@ const WEAPON_ROWS: { label: string; key: (w: W) => string }[] = [
   { label: "Capacity", key: (w) => w.capacity },
 ];
 
+function CompareTable<T>({
+  title,
+  items,
+  rows,
+  hrefFor,
+}: {
+  title: string;
+  items: T[];
+  rows: { label: string; key: (item: T) => string }[];
+  hrefFor: (item: T) => string;
+}) {
+  if (items.length === 0) return null;
+  return (
+    <div className="overflow-x-auto rounded-2xl border border-foreground/10">
+      <div className="border-b border-foreground/10 bg-foreground/5 px-4 py-3 text-sm font-bold uppercase tracking-wider text-foreground/60">
+        {title}
+      </div>
+      <table className="w-full min-w-[640px] border-collapse text-sm">
+        <thead>
+          <tr>
+            <th className="w-40 bg-foreground/5 px-4 py-3 text-left font-semibold uppercase tracking-wider text-foreground/50" />
+            {items.map((item) => (
+              <th
+                key={(item as { slug: string }).slug}
+                className="bg-foreground/5 px-4 py-3 text-left align-top"
+              >
+                <div className="mb-2 h-24 overflow-hidden rounded-lg sm:h-28">
+                  <AIImage
+                    prompt={(item as { imagePrompt: string }).imagePrompt}
+                    fallback={(item as { image: string }).image}
+                    alt={(item as { name: string }).name}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <Link
+                  href={hrefFor(item)}
+                  className="font-bold text-foreground hover:text-sky-400"
+                >
+                  {(item as { name: string }).name}
+                </Link>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr
+              key={row.label}
+              className={i % 2 === 0 ? "bg-foreground/[0.03]" : ""}
+            >
+              <td className="border-t border-foreground/10 px-4 py-3 font-medium text-foreground/60">
+                {row.label}
+              </td>
+              {items.map((item) => (
+                <td
+                  key={(item as { slug: string }).slug}
+                  className="border-t border-foreground/10 px-4 py-3 text-foreground/85"
+                >
+                  {row.key(item)}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export default function ComparePage() {
   const { items, clear } = useStoredList(COMPARE_KEY);
 
@@ -49,12 +116,6 @@ export default function ComparePage() {
   const weapons = wSlugs
     .map((s) => weaponsCatalog.find((w) => w.slug === s))
     .filter(Boolean) as W[];
-
-  const rows =
-    aircraft.length >= weapons.length
-      ? AIRCRAFT_ROWS
-      : WEAPON_ROWS;
-  const list = aircraft.length >= weapons.length ? aircraft : weapons;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
@@ -91,75 +152,20 @@ export default function ComparePage() {
           </Link>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-2xl border border-foreground/10">
-          <table className="w-full min-w-[640px] border-collapse text-sm">
-            <thead>
-              <tr>
-                <th className="w-40 bg-foreground/5 px-4 py-3 text-left font-semibold uppercase tracking-wider text-foreground/50" />
-                {list.map((item) => (
-                  <th
-                    key={item.slug}
-                    className="bg-foreground/5 px-4 py-3 text-left align-top"
-                  >
-                    <div className="mb-2 h-24 overflow-hidden rounded-lg sm:h-28">
-                      <AIImage
-                        prompt={aSlugs.includes(item.slug) ? (item as A).imagePrompt : (item as W).imagePrompt}
-                        fallback={
-                          aSlugs.includes(item.slug)
-                            ? (item as A).image
-                            : (item as W).image
-                        }
-                        alt={item.name}
-                        className="h-full w-full object-cover"
-                      />
-                    </div>
-                    <Link
-                      href={
-                        aSlugs.includes(item.slug)
-                          ? `/aircraft/${item.slug}`
-                          : `/weapons/${item.slug}`
-                      }
-                      className="font-bold text-foreground hover:text-sky-400"
-                    >
-                      {item.name}
-                    </Link>
-                    {aSlugs.includes(item.slug)
-                      ? " " +
-                        ((item as A).type)
-                      : " " + ((item as W).category)}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row, i) => (
-                <tr
-                  key={row.label}
-                  className={i % 2 === 0 ? "bg-foreground/[0.03]" : ""}
-                >
-                  <td className="border-t border-foreground/10 px-4 py-3 font-medium text-foreground/60">
-                    {row.label}
-                  </td>
-                  {list.map((item) => (
-                    <td
-                      key={item.slug}
-                      className="border-t border-foreground/10 px-4 py-3 text-foreground/85"
-                    >
-                      {row.key(item as never)}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div className="flex flex-col gap-10">
+          <CompareTable
+            title="Aircraft"
+            items={aircraft}
+            rows={AIRCRAFT_ROWS}
+            hrefFor={(a) => `/aircraft/${a.slug}`}
+          />
+          <CompareTable
+            title="Weapons"
+            items={weapons}
+            rows={WEAPON_ROWS}
+            hrefFor={(w) => `/weapons/${w.slug}`}
+          />
         </div>
-      )}
-
-      {items.length > 0 && aircraft.length > 0 && weapons.length > 0 && (
-        <p className="mt-4 text-sm text-amber-400">
-          Tip: comparing mixed categories shows aircraft specs — pick weapons to
-          compare their stats instead.
-        </p>
       )}
     </div>
   );

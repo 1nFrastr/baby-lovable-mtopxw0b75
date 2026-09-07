@@ -19,15 +19,22 @@ export default function CompareButton({
   className?: string;
 }) {
   const { items, has, toggle } = useStoredList(COMPARE_KEY);
-  const [init, setInit] = useState(false);
+  const [hovered, setHovered] = useState(false);
   const active = has(slugKey(kind, slug));
+  const full = items.length >= MAX && !active;
 
   return (
     <button
-      aria-label={active ? "Remove from comparison" : "Add to comparison"}
-      title={active ? "In comparison" : "Compare"}
-      disabled={!active && items.length >= MAX}
-      onMouseEnter={() => setInit(true)}
+      aria-label={active ? `Remove ${name} from comparison` : `Add ${name} to comparison`}
+      title={
+        full
+          ? `Comparison is full (max ${MAX})`
+          : active
+            ? "In comparison — click to remove"
+            : `Add ${name} to comparison`
+      }
+      disabled={full}
+      onMouseEnter={() => setHovered(true)}
       onClick={() => toggle(slugKey(kind, slug))}
       className={`grid h-10 w-10 place-items-center rounded-full border transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
         active
@@ -36,7 +43,7 @@ export default function CompareButton({
       } ${className}`}
     >
       <Scale className={`h-5 w-5 ${active ? "fill-current" : ""}`} />
-      {!init && <span className="sr-only">{name}</span>}
+      {!hovered && <span className="sr-only">{name}</span>}
     </button>
   );
 }
