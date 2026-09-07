@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Scale, X, ArrowRight, Plane, Crosshair } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { Scale, X, ArrowRight, Plane, Crosshair, ChevronUp, ChevronDown } from "lucide-react";
 import { COMPARE_KEY, slugKey, useStoredList } from "@/lib/storage";
 import { aircraftCatalog } from "@/data/aircraft";
 import { weaponsCatalog } from "@/data/weapons";
@@ -41,14 +42,14 @@ function Slot({
 }) {
   if (!entry) {
     return (
-      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-lg border-2 border-dashed border-foreground/15 bg-foreground/[0.03] text-foreground/25">
+      <div className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border-2 border-dashed border-foreground/15 bg-foreground/[0.03] text-foreground/25">
         <span className="text-xs font-semibold">+</span>
       </div>
     );
   }
   return (
     <div className="group relative shrink-0">
-      <div className="h-12 w-12 overflow-hidden rounded-lg border border-sky-400/50 bg-foreground/5">
+      <div className="h-10 w-10 overflow-hidden rounded-lg border border-sky-400/50 bg-foreground/5">
         <AIImage
           prompt={entry.imagePrompt}
           fallback={entry.image}
@@ -67,9 +68,36 @@ function Slot({
   );
 }
 
+function CategoryRow({
+  label,
+  icon,
+  slots,
+  onRemove,
+}: {
+  label: string;
+  icon: React.ReactNode;
+  slots: (Entry | null)[];
+  onRemove: (key: string) => void;
+}) {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="flex w-20 shrink-0 items-center gap-1 text-xs font-medium text-foreground/60">
+        {icon}
+        <span className="truncate">{label}</span>
+      </div>
+      <div className="flex gap-1.5 overflow-x-auto">
+        {slots.map((e, i) => (
+          <Slot key={`${e?.slug ?? i}-${i}`} entry={e} onRemove={onRemove} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function CompareTray() {
   const { items, toggle } = useStoredList(COMPARE_KEY);
-  const [visible, setVisible] = useState(false);
+  const pathname = usePathname();
+  const [open, setOpen] = useState(true);
   const [pulse, setPulse] = useState(false);
 
   const entries = items
@@ -79,18 +107,18 @@ export default function CompareTray() {
   const aircraft = entries.filter((e) => e.kind === "aircraft");
   const weapons = entries.filter((e) => e.kind === "weapon");
 
+  // auto-collapse on /compare page, re-expand elsewhere
   useEffect(() => {
-    setVisible(entries.length > 0);
-  }, [entries.length]);
+    setOpen(pathname !== "/compare");
+  }, [pathname]);
 
   useEffect(() => {
-    if (entries.length === 0) return;
     setPulse(true);
     const t = setTimeout(() => setPulse(false), 500);
     return () => clearTimeout(t);
   }, [entries.length]);
 
-  if (!visible) return null;
+  if (entries.length === 0) return null;
 
   const aircraftSlots: (Entry | null)[] = [
     ...aircraft,
@@ -104,51 +132,52 @@ export default function CompareTray() {
   return (
     <div className="fixed inset-x-0 bottom-4 z-50 flex justify-center px-4">
       <div
-        className={`flex w-full max-w-2xl flex-col gap-3 rounded-2xl border border-foreground/10 bg-background/95 p-3 shadow-2xl shadow-black/20 backdrop-blur ${
+        className={`flex w-full max-w-xl flex-col rounded-2xl border border-foreground/10 bg-background/95 shadow-2xl shadow-black/20 backdrop-blur ${
           pulse ? "animate-tray-pulse" : ""
         }`}
       >
-        <div className="flex items-center gap-2">
-          <span className="grid h-9 w-9 place-items-center rounded-full bg-sky-500/15 text-sky-400">
-            <Scale className="h-5 w-5" />
+        {/* Header row — always visible */}
+        <div className="flex items-center gap-2 px-3 py-2">
+          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-sky-500/15 text-sky-400">
+            <Scale className="h-4 w-4" />
           </span>
-          <div className="leading-tight">
-            <p className="text-sm font-semibold">Compare</p>
-            <p className="text-xs text-foreground/60">
-              {entries.length} item{entries.length > 1 ? "s" : ""} selected
-            </p>
-          </div>
+          <p className="text-sm font-semibold leading-tight">Compare</p>
+          <p className="text-xs text-foreground/60">
+            {entries.length} item{entries.length > 1 ? "s" : ""}
+          </p>
+          <button
+            aria-label={open ? "Collapse compare tray" : "Expand compare tray"}
+            onClick={() => setOpen((v) => !v)}
+            className="ml-auto grid h-7 w-7 place-items-center rounded-lg text-foreground/60 transition-colors hover:bg-foreground/10 hover:text-foreground"
+          >
+            {open ? <ChevronDown className="h-4 w-4" /> : <ChevronUp className="h-4 w-4" />}
+          </button>
           <Link
             href="/compare"
-            className="ml-auto flex shrink-0 items-center gap-1.5 rounded-xl bg-sky-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-sky-600"
+            className="flex shrink-0 items-center gap-1 rounded-lg bg-sky-500 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-sky-600"
           >
             View
-            <ArrowRight className="h-4 w-4" />
+            <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1 text-xs font-medium text-foreground/60">
-              <Plane className="h-3.5 w-3.5" /> Aircraft
-            </span>
-            <div className="flex gap-2 overflow-x-auto">
-              {aircraftSlots.map((e, i) => (
-                <Slot key={`a-${e?.slug ?? i}`} entry={e} onRemove={toggle} />
-              ))}
-            </div>
+        {/* Expandable body */}
+        {open && (
+          <div className="flex flex-col gap-2.5 border-t border-foreground/10 px-3 pb-3 pt-2.5">
+            <CategoryRow
+              label="Aircraft"
+              icon={<Plane className="h-3.5 w-3.5 shrink-0" />}
+              slots={aircraftSlots}
+              onRemove={toggle}
+            />
+            <CategoryRow
+              label="Weapons"
+              icon={<Crosshair className="h-3.5 w-3.5 shrink-0" />}
+              slots={weaponSlots}
+              onRemove={toggle}
+            />
           </div>
-          <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1 text-xs font-medium text-foreground/60">
-              <Crosshair className="h-3.5 w-3.5" /> Weapons
-            </span>
-            <div className="flex gap-2 overflow-x-auto">
-              {weaponSlots.map((e, i) => (
-                <Slot key={`w-${e?.slug ?? i}`} entry={e} onRemove={toggle} />
-              ))}
-            </div>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
