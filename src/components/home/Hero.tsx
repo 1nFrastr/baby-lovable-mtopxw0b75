@@ -1,53 +1,19 @@
 import Link from "next/link";
 
-const PHOTOS = [
-  {
-    url: "https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&w=1200&q=80",
-    className: "col-span-2 row-span-2",
-    fallback: "#0f172a",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1550443095-d75ffea6a5a0?auto=format&fit=crop&w=800&q=80",
-    className: "col-span-2 row-span-1",
-    fallback: "#1e293b",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1588514912908-8deb8ccb26d3?auto=format&fit=crop&w=800&q=80",
-    className: "col-span-2 row-span-1",
-    fallback: "#334155",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1595591422198-4e9f1b3b50bb?auto=format&fit=crop&w=800&q=80",
-    className: "col-span-3 row-span-1",
-    fallback: "#0c4a6e",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1578768079052-aa76e52ff62e?auto=format&fit=crop&w=800&q=80",
-    className: "col-span-3 row-span-1",
-    fallback: "#1e1b4b",
-  },
-];
-
 export default function Hero() {
   return (
     <section className="relative -mb-0 overflow-hidden border-b border-foreground/10">
-      {/* 照片墙背景 */}
-      <div className="absolute inset-0" aria-hidden>
-        <div className="grid h-full w-full grid-cols-6 grid-rows-3 gap-px">
-          {PHOTOS.map((photo, i) => (
-            <div
-              key={i}
-              className={`relative overflow-hidden ${photo.className}`}
-            >
-              <div
-                className="absolute inset-0 bg-cover bg-center"
-                style={{ backgroundColor: photo.fallback, backgroundImage: `url(${photo.url})` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/40 to-background/80" />
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* 单张高清背景 */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&w=1920&q=80)",
+        }}
+        aria-hidden
+      />
+      {/* 底部压暗渐变，顶部保持清晰 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background/90" />
 
       {/* 文字内容 */}
       <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 py-28 text-center sm:px-6 sm:py-32">
