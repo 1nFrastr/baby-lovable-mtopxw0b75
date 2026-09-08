@@ -2,8 +2,8 @@ import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative -mb-0 overflow-hidden border-b border-foreground/10">
-      {/* 单张高清背景 */}
+    <section className="relative overflow-hidden border-b border-foreground/10">
+      {/* 背景图 */}
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
@@ -12,54 +12,56 @@ export default function Hero() {
         }}
         aria-hidden
       />
-      {/* 底部压暗渐变，顶部保持中等暗度保证文字可读 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/55 to-background/95" />
+      {/* 统一暗色遮罩，整块压暗，干净不花哨 */}
+      <div className="absolute inset-0 bg-background/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
 
-      {/* 文字内容 */}
+      {/* 左上角徽章 */}
       <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 py-28 text-center sm:px-6 sm:py-32">
-        <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-sky-400/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-sky-300 backdrop-blur-sm">
-          ✈️ For drag &amp; thrust enthusiasts
+        <p className="mb-6 text-xs font-bold uppercase tracking-[0.35em] text-sky-300">
+          For drag &amp; thrust enthusiasts
         </p>
-        <h1 className="max-w-3xl text-4xl font-black leading-tight tracking-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] sm:text-6xl">
+
+        <h1 className="max-w-3xl text-4xl font-black leading-tight tracking-tight text-white sm:text-6xl">
           Where the Skies Meet{" "}
-          <span className="bg-gradient-to-r from-sky-400 to-amber-400 bg-clip-text text-transparent">
-            Steel &amp; Fire
-          </span>
+          <span className="text-sky-400">Steel &amp; Fire</span>
         </h1>
-        <p className="mt-6 max-w-xl text-lg font-medium text-white/95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] drop-shadow-[0_3px_12px_rgba(0,0,0,0.6)]">
+
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70">
           Aviation history, fighter jets, and the firearms that shaped modern
           warfare — specs, stories, and the machines you love, all in one
           hangar.
         </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="#aircraft"
-            className="rounded-lg bg-sky-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-500/30 transition-opacity hover:opacity-90"
+            className="rounded-full bg-sky-500 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-900/40 transition-colors hover:bg-sky-400"
           >
             Explore Aircraft
           </Link>
           <Link
             href="#weapons"
-            className="rounded-lg border border-white/30 bg-black/30 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:border-white/60"
+            className="rounded-full border border-white/25 px-7 py-3 text-sm font-semibold text-white transition-colors hover:border-white/60 hover:bg-white/5"
           >
             Browse Weapons
           </Link>
         </div>
 
-        <div className="mt-14 grid w-full max-w-3xl grid-cols-3 gap-4 text-center">
+        <div className="mt-14 grid w-full max-w-2xl grid-cols-3 gap-3 text-center">
           {[
-            { value: "100+", label: "Aircraft Profiles" },
-            { value: "400+", label: "Weapon Entries" },
-            { value: "7", label: "Decades of History" },
+            { value: "100+", label: "Aircraft" },
+            { value: "400+", label: "Weapons" },
+            { value: "7", label: "Decades" },
           ].map((stat) => (
             <div
               key={stat.label}
-              className="rounded-xl border border-white/15 bg-black/35 px-4 py-5 backdrop-blur-sm"
+              className="rounded-xl border border-white/10 bg-background/50 px-4 py-5"
             >
               <p className="text-2xl font-black text-sky-300 sm:text-3xl">
                 {stat.value}
               </p>
-              <p className="mt-1 text-xs uppercase tracking-widest text-white/60">
+              <p className="mt-1 text-[11px] uppercase tracking-widest text-white/50">
                 {stat.label}
               </p>
             </div>
