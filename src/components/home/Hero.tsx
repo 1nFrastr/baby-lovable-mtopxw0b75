@@ -12,9 +12,9 @@ export default function Hero() {
         }}
         aria-hidden
       />
-      {/* 统一暗色遮罩，整块压暗，干净不花哨 */}
-      <div className="absolute inset-0 bg-background/70" />
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+      {/* 统一暗色遮罩（固定黑色，深/浅主题通用），干净不花哨 */}
+      <div className="absolute inset-0 bg-black/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
       {/* 左上角徽章 */}
       <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 py-28 text-center sm:px-6 sm:py-32">
