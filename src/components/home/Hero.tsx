@@ -6,7 +6,8 @@ export default function Hero() {
       <div
         className="absolute inset-0 bg-cover bg-center opacity-25"
         style={{
-          backgroundImage: "url(/images/hero.svg)",
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&w=1920&q=80)",
         }}
       />
       <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/70 to-background" />
