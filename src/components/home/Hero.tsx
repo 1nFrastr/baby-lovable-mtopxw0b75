@@ -23,8 +23,7 @@ export default function Hero() {
         </p>
 
         <h1 className="max-w-3xl text-4xl font-black leading-tight tracking-tight text-white sm:text-6xl">
-          Where the Skies Meet{" "}
-          <span className="text-sky-400">Steel &amp; Fire</span>
+          Where the Skies Meet <span className="text-sky-400">Steel</span>
         </h1>
 
         <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70">
