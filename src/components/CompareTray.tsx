@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Scale, X, ArrowRight, Plane, Crosshair, ChevronUp, ChevronDown } from "lucide-react";
@@ -94,10 +94,28 @@ function CategoryRow({
   );
 }
 
+const TRAY_OPEN_KEY = "wing-steel:compare-tray-open";
+
+function persistOpen(v: boolean) {
+  try {
+    window.localStorage.setItem(TRAY_OPEN_KEY, v ? "1" : "0");
+  } catch {
+    /* ignore */
+  }
+}
+
 export default function CompareTray() {
   const { items, toggle } = useStoredList(COMPARE_KEY);
   const pathname = usePathname();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true; // SSR: nothing renders anyway
+    try {
+      const stored = window.localStorage.getItem(TRAY_OPEN_KEY);
+      return stored === null ? true : stored === "1";
+    } catch {
+      return true;
+    }
+  });
   const [pulse, setPulse] = useState(false);
 
   const entries = items
@@ -107,10 +125,24 @@ export default function CompareTray() {
   const aircraft = entries.filter((e) => e.kind === "aircraft");
   const weapons = entries.filter((e) => e.kind === "weapon");
 
-  // auto-collapse on /compare page, re-expand elsewhere
+  // auto-collapse on /compare page, re-expand elsewhere (without persisting)
+  const lastManual = useRef<boolean | null>(null);
   useEffect(() => {
-    setOpen(pathname !== "/compare");
+    if (pathname === "/compare") {
+      setOpen(false);
+    } else if (lastManual.current !== null) {
+      setOpen(lastManual.current);
+    }
   }, [pathname]);
+
+  // persist user's manual toggles
+  const toggleOpen = () =>
+    setOpen((v) => {
+      const next = !v;
+      lastManual.current = next;
+      persistOpen(next);
+      return next;
+    });
 
   useEffect(() => {
     setPulse(true);
@@ -147,7 +179,7 @@ export default function CompareTray() {
           </p>
           <button
             aria-label={open ? "Collapse compare tray" : "Expand compare tray"}
-            onClick={() => setOpen((v) => !v)}
+            onClick={toggleOpen}
             className="ml-auto grid h-7 w-7 place-items-center rounded-lg text-foreground/60 transition-colors hover:bg-foreground/10 hover:text-foreground"
           >
             {open ? <ChevronDown className="h-4 w-4" /> : <ChevronUp className="h-4 w-4" />}
