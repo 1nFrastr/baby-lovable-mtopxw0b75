@@ -14,6 +14,8 @@ export function slugKey(kind: "aircraft" | "weapon", slug: string) {
  */
 const stores = new Map<string, string[]>();
 const listeners = new Map<string, Set<() => void>>();
+/** Stable empty snapshot — must be a constant, not a fresh [], to avoid infinite loop. */
+const EMPTY: string[] = [];
 
 function getStore(key: string): string[] {
   let store = stores.get(key);
@@ -79,7 +81,7 @@ export function useStoredList(key: string): {
   const items = useSyncExternalStore(
     (cb) => subscribe(key, cb),
     () => getStore(key),
-    () => []
+    () => EMPTY
   );
 
   const has = (id: string) => items.includes(id);
