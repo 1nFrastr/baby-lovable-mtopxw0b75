@@ -12,9 +12,9 @@ export default function Hero() {
         }}
         aria-hidden
       />
-      {/* 统一暗色遮罩（固定黑色，深/浅主题通用），干净不花哨 */}
-      <div className="absolute inset-0 bg-black/70" />
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+      {/* 统一暗色遮罩（固定 --hero-tint 深色，与深色主题背景同源，观感一致） */}
+      <div className="absolute inset-0 bg-hero-tint/70" />
+      <div className="absolute inset-0 bg-gradient-to-t from-hero-tint via-hero-tint/50 to-hero-tint/10" />
 
       {/* 左上角徽章 */}
       <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 py-28 text-center sm:px-6 sm:py-32">
@@ -56,7 +56,7 @@ export default function Hero() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="rounded-xl border border-white/10 bg-background/50 px-4 py-5"
+              className="rounded-xl border border-white/10 bg-hero-tint/40 px-4 py-5"
             >
               <p className="text-2xl font-black text-sky-300 sm:text-3xl">
                 {stat.value}

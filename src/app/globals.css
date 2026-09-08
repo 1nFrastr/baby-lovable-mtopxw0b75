@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+:root {
+  /* Hero 遮罩固定深蓝色调（深/浅主题一致，保证图片上文字可读） */
+  --hero-tint: #0a0e14;
+}
+
 :root,
 [data-theme="light"] {
   color-scheme: light;
@@ -32,6 +37,7 @@
   --color-foreground: var(--foreground);
   --color-panel: var(--panel);
   --color-muted: var(--muted);
+  --color-hero-tint: var(--hero-tint);
   --font-sans: ui-sans-serif, system-ui, sans-serif;
 }
 
