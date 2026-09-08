@@ -12,21 +12,21 @@ export default function Hero() {
         }}
         aria-hidden
       />
-      {/* 底部压暗渐变，顶部保持清晰 */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background/90" />
+      {/* 底部压暗渐变，顶部保持中等暗度保证文字可读 */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/55 to-background/95" />
 
       {/* 文字内容 */}
       <div className="relative mx-auto flex max-w-6xl flex-col items-center px-4 py-28 text-center sm:px-6 sm:py-32">
         <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-sky-400/30 bg-sky-400/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-sky-300 backdrop-blur-sm">
           ✈️ For drag &amp; thrust enthusiasts
         </p>
-        <h1 className="max-w-3xl text-4xl font-black leading-tight tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)] sm:text-6xl">
+        <h1 className="max-w-3xl text-4xl font-black leading-tight tracking-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)] sm:text-6xl">
           Where the Skies Meet{" "}
           <span className="bg-gradient-to-r from-sky-400 to-amber-400 bg-clip-text text-transparent">
             Steel &amp; Fire
           </span>
         </h1>
-        <p className="mt-6 max-w-xl text-lg text-white/85 drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)]">
+        <p className="mt-6 max-w-xl text-lg font-medium text-white/95 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] drop-shadow-[0_3px_12px_rgba(0,0,0,0.6)]">
           Aviation history, fighter jets, and the firearms that shaped modern
           warfare — specs, stories, and the machines you love, all in one
           hangar.
