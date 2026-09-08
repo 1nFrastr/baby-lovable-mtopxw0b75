@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 
 export function slugKey(kind: "aircraft" | "weapon", slug: string) {
   return `${kind}:${slug}`;
@@ -65,20 +65,22 @@ function update(key: string, next: string[]) {
   emit(key);
 }
 
+/**
+ * useSyncExternalStore guarantees the server-rendered (hydration) snapshot
+ * is the empty list, matching SSR HTML — then the real localStorage-backed
+ * value takes over after hydration without a hydration mismatch error.
+ */
 export function useStoredList(key: string): {
   items: string[];
   has: (id: string) => boolean;
   toggle: (id: string) => void;
   clear: () => void;
 } {
-  const [version, setVersion] = useState(0);
-
-  useEffect(() => {
-    const unsub = subscribe(key, () => setVersion((v) => v + 1));
-    return unsub;
-  }, [key]);
-
-  const items = getStore(key);
+  const items = useSyncExternalStore(
+    (cb) => subscribe(key, cb),
+    () => getStore(key),
+    () => []
+  );
 
   const has = (id: string) => items.includes(id);
 
