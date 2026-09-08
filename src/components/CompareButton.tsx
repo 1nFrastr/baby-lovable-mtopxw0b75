@@ -46,8 +46,8 @@ export default function CompareButton({
       onClick={() => toggle(slugKey(kind, slug))}
       className={`grid h-10 w-10 place-items-center rounded-full border transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
         active
-          ? "border-sky-400 bg-sky-500 text-white"
-          : "border-foreground/15 text-foreground/70 hover:bg-foreground/10"
+          ? "border-sky-400 bg-sky-500 text-white shadow-lg shadow-sky-500/30"
+          : "border-foreground/25 bg-background/70 text-foreground shadow-md shadow-black/40 backdrop-blur-sm hover:border-foreground/50 hover:bg-background/95 hover:text-foreground disabled:bg-background/40 disabled:shadow-none"
       } ${className}`}
     >
       {active ? (
