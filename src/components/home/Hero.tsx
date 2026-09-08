@@ -3,9 +3,9 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <section className="relative overflow-hidden border-b border-foreground/10">
-      {/* 背景图 */}
+      {/* 背景图（压暗，避免白色机身与白字冲突） */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center brightness-50 saturate-[0.9]"
         style={{
           backgroundImage:
             "url(https://images.unsplash.com/photo-1540962351504-03099e0a754b?auto=format&fit=crop&w=1920&q=80)",
